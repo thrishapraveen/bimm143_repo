@@ -1,0 +1,41 @@
+---
+title: "class6_HW"
+output:
+  pdf_document: default
+  html_document: default
+date: "2025-01-27"
+---
+
+Using the provided code, I will make a function that can read in any protein PDB data and output a plot for the specified drug interactions.
+
+This is what the provided code does, not as a function.
+
+```{r}
+library(bio3d)
+
+#reads in the pdb and stores it in a variable
+s1 <- read.pdb("4AKE") 
+  s1.chainA <- trim.pdb(s1, chain="A", elety="CA") #extracts a specific part of the structure
+  s1.b <- s1.chainA$atom$b
+  plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor") #plots the interactions in a line chart
+```
+
+
+```{r}
+library(bio3d)
+
+#a function to plot protein drug interactions, input can be any protein pdb data as a string value, such as "4AKE"
+drug_analysis <- function(x) {
+  s1 <- read.pdb(x) 
+  s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+  s1.b <- s1.chainA$atom$b
+  plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+}
+
+#function works for the following calls
+drug_analysis("4AKE")
+drug_analysis("1AKE")
+drug_analysis("1E4Y")
+
+```
+

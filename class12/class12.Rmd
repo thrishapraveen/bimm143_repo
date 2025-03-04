@@ -1,0 +1,25 @@
+---
+title: "class12"
+author: "Thrisha Praveen"
+date: "2025-02-18"
+output: pdf_document
+---
+
+#Section 1: Proportion of G/G in MXL population
+
+Downloaded CSV file from Ensembl (https://useast.ensembl.org/Homo_sapiens/Variation/Sample?db=core;r=17:39894595-39895595;v=rs8067378;vdb=variation;vf=959672880#373531_tablePanel)
+
+Here we read in the CSV file
+```{r}
+mxl <- read.csv("373531-SampleGenotypes-Homo_sapiens_Variation_Sample_rs8067378.csv")
+head(mxl)
+```
+```{r}
+table(mxl$Genotype..forward.strand.)
+```
+
+```{r}
+table(mxl$Genotype..forward.strand.) / nrow(mxl) * 100
+```
+
+The G|G variant/SNP is associated with childhood asthma at a proportion of 0.1406 in the MXL sample population.

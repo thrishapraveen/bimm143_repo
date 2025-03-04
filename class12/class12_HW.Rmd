@@ -1,0 +1,67 @@
+---
+title: "class12_HW"
+author: "Thrisha Praveen"
+date: "2025-02-18"
+output: pdf_document
+---
+
+Section 4: Population Scale Analysis
+[HOMEWORK]
+
+One sample is obviously not enough to know what is happening in a population. You are interested in assessing genetic differences on a population scale. So, you processed about ~230 samples and did the normalization on a genome level. Now, you want to find whether there is any association of the 4 asthma-associated SNPs (rs8067378...) on ORMDL3 expression.
+
+This is the final file you got (https://bioboot.github.io/bggn213_W19/class- material/rs8067378_ENSG00000172057.6.txt). The first column is sample name, the second column is genotype and the third column are the expression values.
+
+How many samples do we have?
+
+```{r}
+expr <- read.table("rs8067378_ENSG00000172057.6.txt")
+head(expr)
+```
+
+How many in total?
+
+```{r}
+nrow(expr)
+```
+
+How many of each genotype?
+```{r}
+table(expr$geno)
+```
+
+>Q13: Read this file into R and determine the sample size for each genotype and their corresponding median expression levels for each of these genotypes.
+
+```{r}
+library(dplyr)
+expr %>%
+  group_by(geno) %>%
+  summarize(median_exp = median(exp, na.rm = TRUE))
+```
+
+>Q14: Generate a boxplot with a box per genotype, what could you infer from the relative expression value between A/A and G/G displayed in this plot? Does the SNP effect the expression of ORMDL3?
+
+```{r}
+library(ggplot2)
+```
+
+Making a boxplot, grouped by genotype:
+```{r}
+ggplot(expr) + aes(x=geno, y=exp, fill=geno)+
+  geom_boxplot(notch=TRUE)
+
+```
+>The A/A genotype is more highly expressed than the G/G genotype in this sample. Thus, the SNP does affect ORMDL3 expression with a decrease in comparison to expression levels with the wild-type (A/A) genotype.
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+---
+title: "lab19"
+author: "thrisha praveen"
+date: "2025-03-16"
+output: pdf_document
+---
+
+```{r}
+
+#BiocManager::install("Biostrings")
+
+library(Biostrings)
+
+fasta_file <- "A16836270_mutant_seq.fa"  # Replace with your actual file path
+sequences <- readDNAStringSet(fasta_file)
+print(sequences)
+
+first_seq <- sequences[[1]]
+second_seq <- sequences[[2]]
+
+wt_seq <- as.character(first_seq)
+#print(seq_as_string1)
+
+mut_seq <- as.character(second_seq)
+#print(seq_as_string2)
+
+```
+
+```{r}
+wt_chars <- strsplit(as.character(wt_seq), "")[[1]]
+mut_chars <- strsplit(as.character(mut_seq), "")[[1]]
+
+# Find positions where sequences differ
+mut_positions <- which(wt_chars != mut_chars)
+
+# Show differences
+mutations <- data.frame(Position = mut_positions, WT = wt_chars[mut_positions], Mutant = mut_chars[mut_positions])
+print(mutations)
+```
+
+```{r}
+BiocManager::install(c("biomaRt", "Biostrings"))
+
+library(biomaRt)
+library(Biostrings)
+```
+
